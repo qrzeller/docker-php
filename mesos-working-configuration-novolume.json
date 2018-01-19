@@ -1,0 +1,59 @@
+{
+  "id": "/nextcloud-php-nginx-mesos",
+  "version": "2018-01-19T18:13:11.454Z",
+  "containers": [
+    {
+      "name": "php-nginx-nextcloud",
+      "resources": {
+        "cpus": 1,
+        "mem": 1024,
+        "disk": 0
+      },
+      "image": {
+        "kind": "DOCKER",
+        "id": "qtask/docker-php-mesos:latest",
+        "forcePull": true
+      },
+      "endpoints": [
+        {
+          "name": "httpendpoint",
+          "containerPort": 80,
+          "hostPort": 8011,
+          "protocol": [
+            "tcp"
+          ],
+          "labels": {
+            "ep1_label": "ep1"
+          }
+        }
+      ],
+      "exec": {
+        "command": {
+          "shell": "service php7.0-fpm start\nnginx -g 'daemon off;'"
+        }
+      }
+    }
+  ],
+  "networks": [
+    {
+      "name": "dcos",
+      "mode": "container"
+    }
+  ],
+  "scaling": {
+    "instances": 1,
+    "kind": "fixed"
+  },
+  "scheduling": {
+    "placement": {
+      "constraints": []
+    }
+  },
+  "executorResources": {
+    "cpus": 0.1,
+    "mem": 32,
+    "disk": 10
+  },
+  "volumes": [],
+  "fetch": []
+}
