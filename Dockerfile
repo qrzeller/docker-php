@@ -10,4 +10,5 @@ ADD ./nextcloud/ /var/www/html/
 RUN chmod -R +x /var/www/html/
 RUN chown -R www-data:www-data /var/www/html/
 ADD /entrypoint.sh .
-CMD /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+CMD ["/entrypoint.sh"]
